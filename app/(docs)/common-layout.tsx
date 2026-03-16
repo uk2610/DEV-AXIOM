@@ -29,7 +29,7 @@ export default function CommonLayout({
         mode: "top",
       }}
       searchToggle={{ enabled: true }}
-      githubUrl="https://github.com/shivaydv/Dev-Axioms"
+      githubUrl="https://github.com/uk2610/DEV-AXIOM"
       links={[
         {
           text: "Home",
@@ -47,7 +47,7 @@ export default function CommonLayout({
           type: "icon",
           text: "Dev Axioms",
           icon: <FaXTwitter />,
-          url: "https://x.com/shivay1256",
+          url: "https://x.com/UTKARSH76513591",
         },
       ]}
       {...options}
