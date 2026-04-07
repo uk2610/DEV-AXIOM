@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, BrainCircuit, Code2, Layers3, NotebookText, Timer } from "lucide-react";
+import { ArrowRight, BrainCircuit, Code2, Layers3, NotebookText, Target, Timer, Trophy } from "lucide-react";
 
 const prepPillars = [
   {
@@ -36,18 +36,78 @@ const weeklyPlan = [
   { day: "Fri", focus: "Behavioral + Resume", duration: "60 min", action: "STAR stories and impact bullets" },
 ];
 
+const roleTracks = [
+  {
+    role: "Frontend Engineer",
+    target: "React + Product Companies",
+    mix: "Machine coding 45% | JS/DSA 30% | Architecture 25%",
+  },
+  {
+    role: "Full Stack Engineer",
+    target: "Growth Startups",
+    mix: "Problem solving 35% | Design/API 35% | Build speed 30%",
+  },
+  {
+    role: "Web3 Engineer",
+    target: "Protocol + Infra Teams",
+    mix: "Contract logic 40% | Systems thinking 35% | Security 25%",
+  },
+];
+
+const mockLoops = [
+  { name: "Rapid Loop", duration: "45 min", format: "1 medium coding + 1 architecture explainer" },
+  { name: "Standard Loop", duration: "90 min", format: "Machine coding + follow-up optimizations" },
+  { name: "Bar Raiser Loop", duration: "120 min", format: "Hard problem + design defense + tradeoff analysis" },
+];
+
 export default function InterviewPrepPage() {
   return (
     <div className="container mx-auto max-w-6xl px-6 py-20">
       <div className="mb-10 rounded-3xl border border-border/70 bg-card/75 p-8 backdrop-blur">
-        <Badge className="mb-3 bg-primary/10 text-primary hover:bg-primary/10">Interview Prep System</Badge>
+        <Badge className="mb-3 bg-primary/10 text-primary hover:bg-primary/10">Interview Prep Command Center</Badge>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Train For Interviews With A Real Workflow
+          Train Like A Top 1% Candidate
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          This section is intentionally different from Roadmaps: it is execution-first. Pick a sprint track,
-          run timed sessions, and finish each week with measurable outcomes.
+          This area is intentionally different from Roadmaps. Roadmaps teach what to know. Interview Prep trains
+          how to perform under pressure with scorecards, role-focused tracks, and mock loops.
         </p>
+      </div>
+
+      <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Target className="h-4 w-4 text-primary" />
+              Role-Aligned Prep
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>Use a prep mix tailored to the role you are targeting, not generic random practice.</CardDescription>
+          </CardContent>
+        </Card>
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Timer className="h-4 w-4 text-primary" />
+              Timed Execution
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>Every session runs against strict time windows to mirror real interview intensity.</CardDescription>
+          </CardContent>
+        </Card>
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Trophy className="h-4 w-4 text-primary" />
+              Outcome Tracking
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>Track weak spots, rerun failed rounds, and improve with deliberate review loops.</CardDescription>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -122,6 +182,45 @@ export default function InterviewPrepPage() {
             </ul>
             <Link href="/practice" className="mt-5 block">
               <Button className="w-full">Open Practice Arena</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader>
+            <CardTitle className="text-xl">Role-Based Tracks</CardTitle>
+            <CardDescription>Pick one track and follow it for 4 weeks before switching.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {roleTracks.map((track) => (
+              <div key={track.role} className="rounded-xl border border-border/70 bg-background/60 p-3">
+                <p className="text-sm font-semibold">{track.role}</p>
+                <p className="text-xs text-muted-foreground">{track.target}</p>
+                <p className="mt-1 text-xs font-medium text-primary">{track.mix}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card className="border-border/70 bg-card/80">
+          <CardHeader>
+            <CardTitle className="text-xl">Mock Interview Loops</CardTitle>
+            <CardDescription>Use these loops on weekends to validate weekly progress.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {mockLoops.map((loop) => (
+              <div key={loop.name} className="rounded-xl border border-border/70 bg-background/60 p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold">{loop.name}</p>
+                  <Badge variant="secondary">{loop.duration}</Badge>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">{loop.format}</p>
+              </div>
+            ))}
+            <Link href="/practice?difficulty=Hard" className="block">
+              <Button className="w-full">Run Hard Mock Loop</Button>
             </Link>
           </CardContent>
         </Card>

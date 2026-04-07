@@ -1,0 +1,41 @@
+---
+title: "Smart Contract Security Roadmap"
+description: "A focused security progression: common exploits, mitigation patterns, and audit workflow."
+---
+
+## Core Threat Categories
+
+- Reentrancy and external call hazards
+- Access control failures
+- Integer and precision bugs
+- Oracle and price manipulation
+- Signature replay and auth logic flaws
+
+## Security Workflow
+
+1. Define invariants before implementation
+2. Write adversarial tests for each invariant
+3. Review all external interactions
+4. Validate permission boundaries
+5. Simulate failure and rollback behavior
+
+## Audit Checklist
+
+- Are all privileged actions gated correctly?
+- Can user funds be locked permanently?
+- Are arithmetic assumptions explicit?
+- Are external dependencies trusted and validated?
+- Are upgrade paths safe and reversible?
+
+## Practice Regimen
+
+- Weekly exploit reproduction exercise
+- One secure refactor challenge per week
+- One threat model writeup per protocol pattern
+
+## Interview Readiness
+
+You should be able to answer:
+- "How would you prevent reentrancy in this flow?"
+- "What invariants matter most for vault contracts?"
+- "How do you test oracle failure scenarios?"

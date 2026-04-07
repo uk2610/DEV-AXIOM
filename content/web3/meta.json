@@ -1,6 +1,14 @@
 {
+    "title": "Roadmaps",
     "pages": [
+        "getting-started",
+        "ethereum-roadmap",
+        "solana-roadmap",
+        "smart-contract-security",
+        "defi-systems-design",
+        "layer2-and-scaling",
         "---Explore More---",
+        "[Interview Prep](/interview-prep)",
         "[Web Dev](/web-dev)"
     ]
 }
