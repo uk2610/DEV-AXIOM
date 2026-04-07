@@ -1,20 +1,21 @@
 import { baseUrl, keywords } from "@/utils/metadata";
 import "./global.css";
 import { RootProvider } from "fumadocs-ui/provider";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sora, IBM_Plex_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import Analytics from "@/components/analytics/analytics";
 
-const geist = Geist({
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-sora",
 });
 
-const geistMono = Geist_Mono({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-ibm-plex-mono",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} antialiased`}
+      className={`${sora.variable} ${plexMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col">

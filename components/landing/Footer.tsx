@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Logo } from "@/components/global/Logo";
 import { GithubIcon } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
@@ -6,9 +6,10 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-background py-16">
+    <footer className="relative py-16">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_30%,rgba(17,159,196,0.09),transparent_35%),radial-gradient(circle_at_88%_70%,rgba(233,171,75,0.08),transparent_30%)]" />
       <div className="mx-auto max-w-[1250px] px-4 md:px-6">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+        <div className="relative flex flex-col items-center justify-between gap-8 rounded-3xl border border-border/70 bg-card/80 p-8 backdrop-blur md:flex-row">
           <div className="flex flex-col gap-4 md:items-start md:gap-2">
             <Logo />
             <p className="text-muted-foreground text-sm">
@@ -31,10 +32,10 @@ const Footer = () => {
                 Practice
               </Link>
               <Link
-                href="/blog"
+                href="/web3"
                 className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
               >
-                Blog
+                Roadmaps
               </Link>
 
               <div className="hidden h-3 w-px bg-border md:block" />
@@ -55,7 +56,7 @@ const Footer = () => {
 
             <div className="flex items-center gap-4">
               <Link
-                href="https://github.com/shivaydv/Dev-Axioms"
+                href="https://github.com/uk2610/Dev-Axioms"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-muted hover:bg-accent text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-full transition-colors"
@@ -63,7 +64,7 @@ const Footer = () => {
                 <GithubIcon className="h-4 w-4" />
               </Link>
               <Link
-                href="https://x.com/shivay1256"
+                href="https://x.com/uk2610"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-muted hover:bg-accent text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-full transition-colors"
@@ -74,9 +75,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-border mt-8 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
+        <div className="border-border/80 mt-8 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
           <p className="text-muted-foreground text-xs">
-            © {new Date().getFullYear()} Dev Axioms. All rights reserved.
+            Copyright {new Date().getFullYear()} Dev Axioms. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link
@@ -99,4 +100,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
 

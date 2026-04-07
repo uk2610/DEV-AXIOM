@@ -116,7 +116,7 @@ export default async function Image() {
                   color: "#374151",
                 }}
               >
-                ~ By Utkarsh Kumar
+                ~ By utkarsh kumar
               </span>
             </div>
           </div>

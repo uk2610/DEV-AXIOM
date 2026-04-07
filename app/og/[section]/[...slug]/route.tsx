@@ -184,7 +184,7 @@ export async function GET(
                     color: "#374151",
                   }}
                 >
-                  ~ By Shiva Yadav
+                  ~ By utkarsh kumar
                 </span>
               </div>
             </div>

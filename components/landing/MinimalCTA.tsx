@@ -4,10 +4,10 @@ import Link from "next/link";
 
 export function MinimalCTA() {
     return (
-        <section className="py-24 bg-background border-b border-border/40 border-dashed">
-            <div className="max-w-[1250px] mx-auto px-6">
+        <section className="border-b border-border/50 py-24">
+            <div className="mx-auto max-w-[1250px] px-6">
                 <div className="mb-12 text-center md:text-left">
-                    <span className="text-[10px] uppercase font-semibold tracking-wider text-[#FF5A26] mb-4 block">
+                    <span className="mb-4 block text-[10px] font-semibold uppercase tracking-wider text-primary">
                        FREE & OPEN SOURCE
                     </span>
                     <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-4">
@@ -18,35 +18,35 @@ export function MinimalCTA() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     {/* Practice Card */}
-                    <div className="rounded-2xl p-8 md:p-12 border border-border bg-foreground text-background shadow-xl">
+                    <div className="rounded-3xl border border-border bg-gradient-to-br from-primary to-cyan-700 p-8 text-primary-foreground shadow-xl md:p-12">
                         <div className="mb-8">
-                            <div className="text-[10px] uppercase tracking-widest font-semibold text-background/60 mb-8 px-4 py-1 bg-background/10 inline-block rounded-md border border-background/20">
+                            <div className="mb-8 inline-block rounded-md border border-white/20 bg-white/10 px-4 py-1 text-[10px] font-semibold uppercase tracking-widest text-white/70">
                                 MACHINE CODING PRACTICE
                             </div>
                             <h3 className="text-2xl font-medium mb-3">Hands-on Practice</h3>
-                            <p className="text-sm text-background/60 max-w-xs leading-relaxed">Jump securely into React machine coding rounds right from your browser.</p>
+                            <p className="max-w-xs text-sm leading-relaxed text-white/75">Jump into realistic coding rounds with starter code, timer pressure, and curated progression paths.</p>
                         </div>
                         {/* <div className="flex items-end gap-2 mb-10">
                             <span className="text-4xl leading-none font-medium -tracking-wider">Start Practicing</span>
                         </div> */}
                         <Link
                             href="/practice"
-                            className="flex items-center justify-center w-full md:w-auto md:inline-flex px-8 h-12 bg-background text-foreground rounded-md font-medium text-sm transition-opacity hover:opacity-90"
+                            className="flex h-12 w-full items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-slate-900 transition-opacity hover:opacity-90 md:inline-flex md:w-auto"
                         >
                             Explore Questions
                         </Link>
                     </div>
 
                     {/* Resources Card */}
-                    <div className="rounded-2xl p-8 md:p-12 border border-border bg-card shadow-sm">
+                    <div className="rounded-3xl border border-border bg-card/85 p-8 shadow-[0_10px_38px_rgba(16,30,52,0.08)] backdrop-blur md:p-12">
                         <div className="mb-8">
-                            <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-8 px-4 py-1 inline-block rounded-md border border-border bg-background">
-                                REVISION & RESOURCES
+                            <div className="mb-8 inline-block rounded-md border border-border bg-background px-4 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                                ROADMAPS & THEORY
                             </div>
-                            <h3 className="text-2xl font-medium text-foreground mb-3">Docs, Questions & Deep-Dive Blogs</h3>
-                            <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">Quickly revise core web concepts, explore curated interview questions, and read deep-dive blogs explaining complex frontend and system design topics.</p>
+                            <h3 className="mb-3 text-2xl font-medium text-foreground">Structured Learning Tracks</h3>
+                            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">Move through curated docs and roadmap-style paths that connect concepts directly to interview outcomes.</p>
                         </div>
                         {/* <div className="flex flex-col gap-2 mb-10 text-foreground">
                             <span className="text-4xl leading-none font-medium -tracking-wider">Explore Docs</span>
@@ -54,15 +54,15 @@ export function MinimalCTA() {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 href="/web-dev/html-css/basic-html"
-                                className="flex items-center justify-center w-full md:w-auto md:inline-flex px-8 h-12 bg-foreground text-background rounded-md font-medium text-sm transition-opacity hover:opacity-90"
+                                className="flex h-12 w-full items-center justify-center rounded-md bg-foreground px-8 text-sm font-medium text-background transition-opacity hover:opacity-90 md:inline-flex md:w-auto"
                             >
                                 View Docs
                             </Link>
                             <Link
-                                href="/blog"
-                                className="flex items-center justify-center w-full md:w-auto md:inline-flex px-8 h-12 bg-background border border-border text-foreground rounded-md font-medium text-sm transition-opacity hover:bg-muted"
+                                href="/web3"
+                                className="flex h-12 w-full items-center justify-center rounded-md border border-border bg-background px-8 text-sm font-medium text-foreground transition-opacity hover:bg-muted md:inline-flex md:w-auto"
                             >
-                                View Blogs
+                                View Roadmaps
                             </Link>
                         </div>
                     </div>

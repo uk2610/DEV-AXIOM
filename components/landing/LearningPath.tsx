@@ -41,11 +41,11 @@ const features = [
 
 export function LearningPath() {
     return (
-        <section className="py-24 bg-background border-b border-border/40 border-dashed">
-            <div className="max-w-[1250px] mx-auto px-6">
+        <section className="border-b border-border/50 py-24">
+            <div className="mx-auto max-w-[1250px] px-6">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div className="max-w-xl">
-                        <span className="text-[10px] uppercase font-semibold tracking-wider text-[#FF5A26] mb-4 block">
+                        <span className="mb-4 block text-[10px] font-semibold uppercase tracking-wider text-primary">
                             INTERVIEW PREPARATION FLOW
                         </span>
                         <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-4 text-foreground">
@@ -58,7 +58,7 @@ export function LearningPath() {
                     
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     {features.map((feature, i) => (
                         <motion.div
                             key={i}
@@ -66,13 +66,14 @@ export function LearningPath() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="bg-card rounded-xl p-8 border border-border flex flex-col items-center text-center shadow-sm"
+                            className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-border bg-card/80 p-8 text-center shadow-[0_8px_35px_rgba(12,25,48,0.08)]"
                         >
-                            <div className="w-full h-32 mb-6 flex items-center justify-center text-foreground/80 opacity-60 bg-muted/30 rounded-lg border border-border">
+                            <div className="absolute top-0 h-1 w-full bg-gradient-to-r from-primary/70 via-primary to-amber-400/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                            <div className="mb-6 flex h-32 w-full items-center justify-center rounded-lg border border-border bg-muted/30 text-foreground/80 opacity-70">
                                 {feature.iconPath}
                             </div>
-                            <h3 className="font-medium text-foreground mb-3 text-[15px]">{feature.title}</h3>
-                            <p className="text-xs text-muted-foreground leading-relaxed max-w-[250px]">
+                            <h3 className="mb-3 text-[15px] font-semibold text-foreground">{feature.title}</h3>
+                            <p className="max-w-[250px] text-xs leading-relaxed text-muted-foreground">
                                 {feature.description}
                             </p>
                         </motion.div>

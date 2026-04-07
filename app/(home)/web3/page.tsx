@@ -1,67 +1,177 @@
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { FaEthereum } from "react-icons/fa";
-import { SiSolana } from "react-icons/si";
-import { MoveRight } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Blocks, ShieldCheck, Timer, Workflow } from "lucide-react";
 
 export default function Web3Page() {
-    const categories = [
+    const roadmapPhases = [
         {
-            title: "Solana",
-            description: "Master the high-performance blockchain ecosystem. Built on Proof of History for the next generation of apps.",
-            href: "/web3/solana",
-            icon: <SiSolana className="w-6 h-6 text-[#14F195]" />,
-            largeIcon: <SiSolana className="w-12 h-12 text-[#14F195]" />,
-            tag: "Rust"
+            phase: "Phase 1",
+            title: "Core Chain Fundamentals",
+            details:
+                "Consensus, transactions, wallets, gas models, and basic smart contract lifecycle.",
         },
         {
-            title: "Ethereum",
-            description: "The foundation of decentralized finance and smart contracts. Deep dive into the EVM and Solidity ecosystem.",
+            phase: "Phase 2",
+            title: "Protocol & App Building",
+            details:
+                "Token standards, DeFi primitives, oracle integration, and production-ready architecture.",
+        },
+        {
+            phase: "Phase 3",
+            title: "Security & Scale",
+            details:
+                "Threat modeling, audit mindset, L2 tradeoffs, and high-scale backend integrations.",
+        },
+    ];
+
+    const tracks = [
+        {
+            title: "Ethereum Developer Track",
+            level: "Beginner to Advanced",
             href: "/web3/ethereum",
-            icon: <FaEthereum className="w-6 h-6 text-primary" />,
-            largeIcon: <FaEthereum className="w-12 h-12 text-primary" />,
-            tag: "Solidity"
-        }
+            status: "Available",
+            points: ["EVM internals", "Solidity patterns", "Gas optimization"],
+        },
+        {
+            title: "Solana Builder Track",
+            level: "Intermediate to Advanced",
+            href: "/web3/solana",
+            status: "Available",
+            points: ["Accounts model", "Programs in Rust", "Anchor workflow"],
+        },
+        {
+            title: "Smart Contract Security",
+            level: "Intermediate",
+            href: "/coming-soon",
+            status: "In Progress",
+            points: ["Attack vectors", "Audit checklist", "Defense patterns"],
+        },
+        {
+            title: "DeFi Systems Design",
+            level: "Advanced",
+            href: "/coming-soon",
+            status: "In Progress",
+            points: ["AMM mechanics", "Risk controls", "Protocol architecture"],
+        },
     ];
 
     return (
-        <div className="container py-24 max-w-4xl mx-auto px-6">
-            <div className="space-y-4 mb-20 px-2">
-                <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground/90">Web3 & Blockchain</h1>
-                <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
-                    The decentralized frontier. Explore the architectures of trustless computing, smart contracts, and sovereign digital assets.
+        <div className="container mx-auto max-w-6xl px-6 py-20">
+            <div className="mb-12 rounded-3xl border border-border/70 bg-card/70 p-8 backdrop-blur">
+                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+                    <Workflow className="h-3.5 w-3.5" />
+                    Web3 Roadmaps
+                </div>
+                <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                    Structured Blockchain Learning Paths
+                </h1>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    Move from fundamentals to protocol-level engineering using clear progression phases, deep-dive tracks, and practice-first checkpoints.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2">
-                {categories.map((category) => (
-                    <Link key={category.href} href={category.href} className="group">
-                        <Card className="h-full transition-all duration-500 ease-in-out hover:ring-2 hover:ring-primary/20 border-border/40 bg-card/30 backdrop-blur-md overflow-hidden relative shadow-sm hover:shadow-xl hover:-translate-y-1">
-                            {/* Background Accent Icon */}
-                            <div className="absolute -top-3 -right-3 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-all duration-700 ease-in-out transform group-hover:scale-125 group-hover:-rotate-12">
-                                {category.largeIcon}
+            <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+                {roadmapPhases.map((item) => (
+                    <Card key={item.phase} className="border-border/60 bg-card/70">
+                        <CardHeader className="space-y-2">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-primary">
+                                {item.phase}
                             </div>
+                            <CardTitle className="text-lg">{item.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <CardDescription className="text-sm leading-relaxed">
+                                {item.details}
+                            </CardDescription>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
 
-                            <CardHeader className="flex flex-row items-center gap-4 space-y-0 text-left p-6">
-                                <div className="p-3 rounded-xl bg-primary/5 text-primary border border-primary/10 transition-colors duration-500 group-hover:bg-primary/10">
-                                    {category.icon}
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                {tracks.map((track) => (
+                    <Link key={track.title} href={track.href} className="group">
+                        <Card className="h-full border-border/70 bg-card/75 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
+                            <CardHeader>
+                                <div className="mb-1 flex items-center justify-between gap-3">
+                                    <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                        {track.level}
+                                    </span>
+                                    <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary">
+                                        {track.status}
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className="text-[10px] font-semibold text-primary/70 mb-0.5 uppercase tracking-[0.15em]">{category.tag}</div>
-                                    <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors duration-500 tracking-tight">{category.title}</CardTitle>
-                                </div>
+                                <CardTitle className="text-xl tracking-tight transition-colors group-hover:text-primary">
+                                    {track.title}
+                                </CardTitle>
                             </CardHeader>
-                            <CardContent className="space-y-5 p-6 pt-0">
-                                <CardDescription className="text-sm leading-relaxed text-muted-foreground/80 text-left px-0">
-                                    {category.description}
-                                </CardDescription>
-                                <div className="flex items-center text-xs font-bold text-primary/70 group-hover:text-primary transition-all duration-500 group-hover:pl-1">
-                                    Explore Ecosystem <MoveRight className="w-3.5 h-3.5 ml-2 opacity-50 group-hover:opacity-100 transition-all duration-500 transform group-hover:translate-x-1" />
+                            <CardContent>
+                                <ul className="space-y-2 text-sm text-muted-foreground">
+                                    {track.points.map((point) => (
+                                        <li key={point} className="flex items-center gap-2">
+                                            <Blocks className="h-3.5 w-3.5 text-primary" />
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="mt-5 inline-flex items-center text-sm font-semibold text-primary">
+                                    Open Track <ArrowRight className="ml-1.5 h-4 w-4" />
                                 </div>
                             </CardContent>
                         </Card>
                     </Link>
                 ))}
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+                <Card className="border-border/70 bg-card/75">
+                    <CardHeader>
+                        <div className="mb-1 inline-flex items-center gap-2 text-primary">
+                            <Timer className="h-4 w-4" />
+                            <span className="text-xs font-semibold uppercase tracking-wider">Practice Layer</span>
+                        </div>
+                        <CardTitle className="text-lg">Timed Challenge Routine</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <CardDescription>
+                            Pair each roadmap topic with timed coding sessions in Interview Prep for faster retention.
+                        </CardDescription>
+                    </CardContent>
+                </Card>
+
+                <Card className="border-border/70 bg-card/75">
+                    <CardHeader>
+                        <div className="mb-1 inline-flex items-center gap-2 text-primary">
+                            <ShieldCheck className="h-4 w-4" />
+                            <span className="text-xs font-semibold uppercase tracking-wider">Security Layer</span>
+                        </div>
+                        <CardTitle className="text-lg">Audit Mindset Included</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <CardDescription>
+                            Every advanced track includes security checks, common exploit patterns, and mitigation references.
+                        </CardDescription>
+                    </CardContent>
+                </Card>
+
+                <Card className="border-border/70 bg-card/75">
+                    <CardHeader>
+                        <div className="mb-1 inline-flex items-center gap-2 text-primary">
+                            <Workflow className="h-4 w-4" />
+                            <span className="text-xs font-semibold uppercase tracking-wider">Execution Layer</span>
+                        </div>
+                        <CardTitle className="text-lg">Roadmap to Interview Flow</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                        <CardDescription>
+                            Use roadmap modules as theory blocks, then apply immediately in interview-focused exercises.
+                        </CardDescription>
+                        <Link href="/interview-prep">
+                            <Button size="sm" className="w-full">Go To Interview Prep</Button>
+                        </Link>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     );

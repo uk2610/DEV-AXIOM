@@ -1,8 +1,7 @@
-import { DocsLayout, DocsLayoutProps } from "fumadocs-ui/layouts/notebook";
+﻿import { DocsLayout, DocsLayoutProps } from "fumadocs-ui/layouts/notebook";
 import type { ReactNode } from "react";
 
 import { LogoIcon } from "@/components/global/Logo";
-import type { PageTree } from "fumadocs-core/server";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function CommonLayout({
@@ -11,7 +10,7 @@ export default function CommonLayout({
   options,
 }: {
   children: ReactNode;
-  pageTree: PageTree.Root;
+  pageTree: any;
   options?: Partial<DocsLayoutProps>;
 }) {
   return (
@@ -29,7 +28,7 @@ export default function CommonLayout({
         mode: "top",
       }}
       searchToggle={{ enabled: true }}
-      githubUrl="https://github.com/uk2610/DEV-AXIOM"
+      githubUrl="https://github.com/uk2610/Dev-Axioms"
       links={[
         {
           text: "Home",
@@ -37,17 +36,21 @@ export default function CommonLayout({
         },
         {
           text: "Practice",
-          url: "#",
+          url: "/practice",
         },
         {
-          text: "Blogs",
-          url: "/blog",
+          text: "Roadmaps",
+          url: "/web3",
+        },
+        {
+          text: "Playgrounds",
+          url: "/coming-soon",
         },
         {
           type: "icon",
           text: "Dev Axioms",
           icon: <FaXTwitter />,
-          url: "https://x.com/UTKARSH76513591",
+          url: "https://x.com/uk2610",
         },
       ]}
       {...options}
@@ -56,3 +59,4 @@ export default function CommonLayout({
     </DocsLayout>
   );
 }
+

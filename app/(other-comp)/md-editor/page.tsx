@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,12 +11,12 @@ const sampleMarkdown = `# Welcome to Advanced Markdown Editor
 
 A **powerful and intuitive** markdown editor built with modern React components.
 
-## ✨ Key Features
+## âœ¨ Key Features
 
 ### Rich Text Editing
 - **Bold**, *italic*, and ~~strikethrough~~ text
 - \`Inline code\` with syntax highlighting
-- [Clickable links](https://github.com/shivaydv/dev-axioms) that work seamlessly
+- [Clickable links](https://github.com/uk2610/dev-axioms) that work seamlessly
 
 ### Code Blocks with Syntax Highlighting
 \`\`\`typescript
@@ -50,10 +50,10 @@ console.log(greet("World"));
 ### Tables Made Easy
 | Feature | Status | Description |
 |---------|---------|-------------|
-| Live Preview | ✅ | Real-time markdown rendering |
-| Image Upload | ✅ | Drag & drop support |
-| Export Options | ✅ | Multiple format support |
-| Collaborative | 🚧 | Coming soon |
+| Live Preview | âœ… | Real-time markdown rendering |
+| Image Upload | âœ… | Drag & drop support |
+| Export Options | âœ… | Multiple format support |
+| Collaborative | ðŸš§ | Coming soon |
 
 ### Lists and Organization
 1. **Numbered lists** for step-by-step guides
@@ -66,14 +66,14 @@ console.log(greet("World"));
 ### Blockquotes for Emphasis
 > "The best markdown editor I've ever used. It combines the simplicity of plain text with the power of rich formatting."
 > 
-> — **Happy Developer**
+> â€” **Happy Developer**
 
 ### Images and Media
 ![Sample Image](https://images.pexels.com/photos/707837/pexels-photo-707837.jpeg)
 
 ---
 
-## 🚀 Try It Yourself!
+## ðŸš€ Try It Yourself!
 
 Switch between the **Edit**, **Preview**, and **Raw** modes to experience the full power of this editor. Perfect for documentation, blogs, README files, and more!`;
 
@@ -173,15 +173,16 @@ function MyComponent() {
         <p>
           Made by{" "}
           <a
-            href="https://x.com/shivay1256"
+            href="https://x.com/uk2610"
             target="_blank"
             className="hover:text-foreground font-medium underline"
             rel="noreferrer"
           >
-            Shiva Yadav
+            utkarsh kumar
           </a>
         </p>
       </div>
     </div>
   );
 }
+

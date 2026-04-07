@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ChevronDown, GithubIcon, Menu, X } from "lucide-react";
 import { Logo } from "@/components/global/Logo";
@@ -19,12 +19,9 @@ interface NavLink {
 export const NAVLINKS: NavLink[] = [
   { title: "Docs", href: "/web-dev" },
   { title: "Practice", href: "/practice" },
-  { title: "Playgrounds", href: "/comming-soon" },
-  { title: "Blogs", href: "/blog" },
-  {
-    title: "Community",
-    href: "https://github.com/shivaydv/Dev-Axioms/discussions",
-  },
+  { title: "Playgrounds", href: "/coming-soon" },
+  { title: "Roadmaps", href: "/web3" },
+  { title: "Interview Prep", href: "/interview-prep" },
 ];
 
 export function Navbar() {
@@ -54,7 +51,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full border-b backdrop-blur-md ${isOpen ? "bg-background/80" : "bg-background"}`}
+      className={`sticky top-0 z-50 w-full border-b border-border/70 backdrop-blur-xl ${isOpen ? "bg-background/92" : "bg-background/88"}`}
     >
       <div className="relative mx-auto flex h-16 max-w-[1250px] items-center justify-between px-4 md:px-6">
         {/* Left side - Logo + Desktop Links */}
@@ -68,13 +65,13 @@ export function Navbar() {
         {/* Right side - icons + mobile menu button */}
         <div className="flex items-center gap-2">
           <Link
-            href="https://github.com/shivaydv/Dev-Axioms"
+            href="https://github.com/uk2610/Dev-Axioms"
             className={`${buttonVariants({ variant: "ghost", size: "icon" })} max-md:hidden`}
           >
             <GithubIcon className="h-[1.2rem] w-[1.2rem]" />
           </Link>
           <Link
-            href="https://x.com/shivay1256"
+            href="https://x.com/uk2610"
             className={`${buttonVariants({ variant: "ghost", size: "icon" })} max-md:hidden`}
           >
             <FaXTwitter className="h-[1.2rem] w-[1.2rem]" />
@@ -130,9 +127,9 @@ export function NavMenu() {
           <Link
             key={item.title}
             href={item.href || "#"}
-            className={`hover:text-foreground transition-colors ${isActive
-                ? "text-foreground font-semibold"
-                : "text-muted-foreground"
+            className={`rounded-md px-2.5 py-1.5 transition-colors ${isActive
+                ? "bg-primary/12 text-primary font-semibold"
+                : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
               }`}
           >
             {item.title}
@@ -156,9 +153,9 @@ export function MobileNavMenu({ onItemClick }: { onItemClick: () => void }) {
             key={item.title}
             href={item.href || "#"}
             onClick={onItemClick}
-            className={`hover:bg-accent hover:text-accent-foreground block rounded-md px-3 py-3 text-base font-medium transition-all duration-200 ${isActive
-                ? "text-foreground bg-accent/50 font-semibold"
-                : "text-muted-foreground"
+            className={`block rounded-md px-3 py-3 text-base font-medium transition-all duration-200 ${isActive
+                ? "bg-primary/15 text-primary font-semibold"
+                : "text-muted-foreground hover:bg-accent/70 hover:text-accent-foreground"
               }`}
             style={{
               animationDelay: `${index * 50}ms`,
@@ -173,13 +170,13 @@ export function MobileNavMenu({ onItemClick }: { onItemClick: () => void }) {
       })}
       <div className="flex gap-2 py-1 md:hidden">
         <Link
-          href="https://github.com/shivaydv/Dev-Axioms"
+          href="https://github.com/uk2610/Dev-Axioms"
           className={buttonVariants({ variant: "ghost", size: "icon" })}
         >
           <GithubIcon className="h-[1.2rem] w-[1.2rem]" />
         </Link>
         <Link
-          href="https://x.com/shivay1256"
+          href="https://x.com/uk2610"
           className={buttonVariants({ variant: "ghost", size: "icon" })}
         >
           <FaXTwitter className="h-[1.2rem] w-[1.2rem]" />
@@ -233,3 +230,4 @@ const AuthBtns = ({ size = "sm" }: { size?: "default" | "sm" | "lg" }) => {
     </div>
   );
 };
+

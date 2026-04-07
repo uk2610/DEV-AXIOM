@@ -173,12 +173,12 @@ export default function FileManagerComponent() {
       <div className="text-muted-foreground py-4 text-center text-xs sm:text-sm">
         Made with ❤️ by{" "}
         <a
-          href="https://x.com/shivay1256"
+          href="https://x.com/uk2610"
           target="_blank"
           className="hover:text-foreground underline"
           rel="noreferrer"
         >
-          Shiva Yadav
+          utkarsh kumar
         </a>
       </div>
     </div>
