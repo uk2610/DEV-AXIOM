@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum InterviewStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum InterviewType {
+  TECHNICAL
+  BEHAVIORAL
+  SYSTEM_DESIGN
+  CODING
+}
+
+model User {
+  id                String             @id
+  name              String
+  email             String             @unique
+  emailVerified     Boolean            @default(false)
+  image             String?
+  role              Role               @default(USER)
+  sessions          InterviewSession[]
+  codingResults     CodingResult[]
+  analytics         Analytics?
+  resumes           Resume[]
+  subscriptions     Subscription[]
+  activityLogs      ActivityLog[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@map("user")
+}
+
+model InterviewSession {
+  id              String          @id @default(uuid())
+  userId          String?
+  user            User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role            String
+  type            InterviewType   @default(TECHNICAL)
+  difficulty      String          @default("medium")
+  status          InterviewStatus @default(ACTIVE)
+  currentQuestion String?
+  score           Int             @default(0)
+  metadata        Json            @default("{}")
+  questions       Question[]
+  answers         Answer[]
+  feedback        Feedback[]
+  codingResults   CodingResult[]
+  startedAt       DateTime        @default(now())
+  completedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("interview_sessions")
+}
+
+model Question {
+  id              String            @id @default(uuid())
+  sessionId       String?
+  session         InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  prompt          String
+  category        String
+  difficulty      String            @default("medium")
+  expectedSignals Json              @default("[]")
+  answers         Answer[]
+  createdAt       DateTime          @default(now())
+
+  @@map("ai_questions")
+}
+
+model Answer {
+  id                  String            @id @default(uuid())
+  sessionId           String?
+  session             InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionId          String?
+  question            Question?         @relation(fields: [questionId], references: [id], onDelete: SetNull)
+  transcript          String
+  responseTimeSeconds Int               @default(0)
+  feedback            Feedback[]
+  createdAt           DateTime          @default(now())
+
+  @@map("answers")
+}
+
+model Feedback {
+  id               String            @id @default(uuid())
+  sessionId        String?
+  session          InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  answerId         String?
+  answer           Answer?           @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  scores           Json
+  strengths        Json              @default("[]")
+  weaknesses       Json              @default("[]")
+  suggestions      Json              @default("[]")
+  roadmap          Json              @default("[]")
+  followUpQuestion String
+  summary          String
+  createdAt        DateTime          @default(now())
+
+  @@map("feedback")
+}
+
+model CodingResult {
+  id          String            @id @default(uuid())
+  userId      String?
+  user        User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId   String?
+  session     InterviewSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  language    String
+  code        String
+  testsPassed Int               @default(0)
+  testsTotal  Int               @default(0)
+  output      String
+  metrics     Json              @default("{}")
+  createdAt   DateTime          @default(now())
+
+  @@map("coding_results")
+}
+
+model Analytics {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  readinessScore Int      @default(0)
+  streak         Int      @default(0)
+  weakTopics     Json     @default("[]")
+  trends         Json     @default("{}")
+  updatedAt      DateTime @updatedAt
+
+  @@map("analytics")
+}
+
+model Resume {
+  id                 String   @id @default(uuid())
+  userId             String?
+  user               User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName           String
+  rawText            String
+  skills             Json     @default("[]")
+  weakAreas          Json     @default("[]")
+  generatedQuestions Json     @default("[]")
+  createdAt          DateTime @default(now())
+
+  @@map("resumes")
+}
+
+model Subscription {
+  id               String    @id @default(uuid())
+  userId           String?
+  user             User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan             String    @default("free")
+  status           String    @default("active")
+  currentPeriodEnd DateTime?
+  createdAt        DateTime  @default(now())
+
+  @@map("subscriptions")
+}
+
+model ActivityLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json     @default("{}")
+  success    Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@map("activity_logs")
+}

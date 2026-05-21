@@ -1,0 +1,4 @@
+export * from "@/db/schema/auth-schema";
+export * from "@/db/schema/questions-schema";
+export * from "@/db/schema/user-interactions-schema";
+export * from "@/db/schema/interview-ai-schema";

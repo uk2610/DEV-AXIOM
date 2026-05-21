@@ -1,0 +1,52 @@
+---
+title: "Solana Builder Track"
+description: "Roadmap to build high-performance Solana programs with strong systems understanding."
+---
+
+## Stage 1: Solana Mental Model
+
+- Accounts and rent
+- Programs, instructions, and transaction composition
+- Sealevel parallel runtime basics
+
+### Must-Do
+- Decode instruction + account flow in a real transaction
+- Build a simple account state transition program
+
+## Stage 2: Rust + Program Design
+
+- Data modeling for account layouts
+- PDAs and deterministic addressing
+- Error handling and program constraints
+
+### Must-Do
+- Implement PDA-based ownership model
+- Add robust validation for all instruction paths
+
+## Stage 3: Anchor + Tooling
+
+- Anchor project structure
+- Testing with local validator
+- Client integration and instruction builders
+
+### Must-Do
+- Write integration tests for all major flows
+- Build a client that performs at least 3 instruction types
+
+## Stage 4: Scale + Reliability
+
+- Compute budgets and transaction optimization
+- Account contention and parallel execution limits
+- Monitoring, retries, and operational safety
+
+### Interview Prompts
+- "How do PDA collisions get prevented?"
+- "Why do account locks affect throughput?"
+- "How do you design around compute limits?"
+
+## Final Output
+
+Build one Solana mini-app with:
+- multi-step state transitions
+- deterministic addressing
+- tests + operational notes

@@ -1,0 +1,35 @@
+---
+title: "Layer 2 and Scaling"
+description: "Understand L2 architecture, tradeoffs, and backend patterns for scalable blockchain products."
+---
+
+## Scaling Landscape
+
+- Throughput bottlenecks on base layers
+- Rollup-centric architecture
+- Data availability assumptions
+
+## Practical Topics
+
+- L1-L2 bridging mental model
+- Finality and withdrawal windows
+- State commitments and proof workflows
+
+## Engineering Considerations
+
+- User experience under asynchronous finality
+- Retry-safe transaction pipelines
+- Indexing architecture across layers
+
+## Interview Prompts
+
+- "When do you choose L2 vs sidechain?"
+- "How does finality affect product UX?"
+- "What are failure modes in bridge systems?"
+
+## Build Assignment
+
+Design a multi-network transaction service that:
+- tracks pending/finalized states
+- handles retries and dropped tx
+- provides deterministic user status updates

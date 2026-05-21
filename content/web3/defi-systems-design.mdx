@@ -1,0 +1,39 @@
+---
+title: "DeFi Systems Design"
+description: "Design playbook for DeFi products: AMMs, lending, liquidation engines, and risk controls."
+---
+
+## System Design Areas
+
+- AMM pricing and liquidity models
+- Lending protocol accounting
+- Collateral risk and liquidation flow
+- Oracle selection and fallback strategy
+
+## Design Principles
+
+- Keep protocol state transitions deterministic
+- Treat all external dependencies as unreliable
+- Design for partial failure and graceful degradation
+- Prefer explicit risk boundaries over optimistic assumptions
+
+## Architecture Walkthrough Template
+
+1. Product objective
+2. Core entities and state transitions
+3. Critical invariants
+4. Attack surface and controls
+5. Monitoring and emergency response
+
+## Interview Exercises
+
+- Design a stablecoin vault with liquidation protection
+- Design a lending protocol with health factor logic
+- Explain oracle update risk and mitigation strategy
+
+## Output Goal
+
+Create a system-design memo for one DeFi primitive with:
+- component diagram
+- invariant list
+- incident response plan
