@@ -1,5 +1,13 @@
-import coreWebVitals from "eslint-config-next/core-web-vitals.js";
-import nextTypescript from "eslint-config-next/typescript";
+import nextCoreWebVitalsConfig from "eslint-config-next/core-web-vitals.js";
+import nextTypescriptConfig from "eslint-config-next/typescript.js";
+
+const nextCoreWebVitals = Array.isArray(nextCoreWebVitalsConfig)
+  ? nextCoreWebVitalsConfig
+  : nextCoreWebVitalsConfig.default ?? [];
+
+const nextTypescript = Array.isArray(nextTypescriptConfig)
+  ? nextTypescriptConfig
+  : nextTypescriptConfig.default ?? [];
 
 const eslintConfig = [
   ...nextCoreWebVitals,

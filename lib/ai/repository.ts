@@ -30,36 +30,40 @@ export async function createInterviewSession(input: {
 }) {
   const database = await getDb();
   if (database) {
-    const [session] = await database.db
-      .insert(database.schema.interviewSessions)
-      .values({
+    try {
+      const [session] = await database.db
+        .insert(database.schema.interviewSessions)
+        .values({
+          userId: input.userId,
+          role: input.role,
+          type: input.type,
+          difficulty: input.difficulty,
+          currentQuestion: input.question,
+          metadata: { source: "ai-orchestrator" },
+        })
+        .returning();
+      await database.db.insert(database.schema.questions).values({
+        sessionId: session.id,
+        prompt: input.question,
+        category: input.type,
+        difficulty: input.difficulty,
+        expectedSignals: ["structure", "tradeoffs", "correctness", "communication"],
+      });
+      return {
+        id: session.id,
         userId: input.userId,
         role: input.role,
         type: input.type,
         difficulty: input.difficulty,
+        status: "ACTIVE" as const,
         currentQuestion: input.question,
-        metadata: { source: "ai-orchestrator" },
-      })
-      .returning();
-    await database.db.insert(database.schema.questions).values({
-      sessionId: session.id,
-      prompt: input.question,
-      category: input.type,
-      difficulty: input.difficulty,
-      expectedSignals: ["structure", "tradeoffs", "correctness", "communication"],
-    });
-    return {
-      id: session.id,
-      userId: input.userId,
-      role: input.role,
-      type: input.type,
-      difficulty: input.difficulty,
-      status: "ACTIVE" as const,
-      currentQuestion: input.question,
-      score: 0,
-      startedAt: session.startedAt.toISOString(),
-      turns: [{ question: input.question }],
-    };
+        score: 0,
+        startedAt: session.startedAt.toISOString(),
+        turns: [{ question: input.question }],
+      };
+    } catch (error) {
+      console.warn("Database session create failed; using in-memory interview session.", error);
+    }
   }
 
   const session: InterviewSessionState = {
@@ -84,24 +88,29 @@ export async function getInterviewSession(id: string) {
 
   const database = await getDb();
   if (!database) return null;
-  const [session] = await database.db
-    .select()
-    .from(database.schema.interviewSessions)
-    .where(eq(database.schema.interviewSessions.id, id))
-    .limit(1);
-  if (!session) return null;
-  return {
-    id: session.id,
-    userId: session.userId || "demo-user",
-    role: session.role,
-    type: session.type,
-    difficulty: session.difficulty,
-    status: session.status,
-    currentQuestion: session.currentQuestion || "",
-    score: session.score,
-    startedAt: session.startedAt.toISOString(),
-    turns: [{ question: session.currentQuestion || "" }],
-  } satisfies InterviewSessionState;
+  try {
+    const [session] = await database.db
+      .select()
+      .from(database.schema.interviewSessions)
+      .where(eq(database.schema.interviewSessions.id, id))
+      .limit(1);
+    if (!session) return null;
+    return {
+      id: session.id,
+      userId: session.userId || "demo-user",
+      role: session.role,
+      type: session.type,
+      difficulty: session.difficulty,
+      status: session.status,
+      currentQuestion: session.currentQuestion || "",
+      score: session.score,
+      startedAt: session.startedAt.toISOString(),
+      turns: [{ question: session.currentQuestion || "" }],
+    } satisfies InterviewSessionState;
+  } catch (error) {
+    console.warn("Database session lookup failed; checking in-memory session cache.", error);
+    return inMemory;
+  }
 }
 
 export async function saveAnswer(input: {
@@ -130,41 +139,45 @@ export async function saveAnswer(input: {
 
   const database = await getDb();
   if (database) {
-    const [question] = await database.db
-      .select()
-      .from(database.schema.questions)
-      .where(eq(database.schema.questions.sessionId, input.session.id))
-      .orderBy(desc(database.schema.questions.createdAt))
-      .limit(1);
-    const [answerRow] = await database.db
-      .insert(database.schema.answers)
-      .values({
+    try {
+      const [question] = await database.db
+        .select()
+        .from(database.schema.questions)
+        .where(eq(database.schema.questions.sessionId, input.session.id))
+        .orderBy(desc(database.schema.questions.createdAt))
+        .limit(1);
+      const [answerRow] = await database.db
+        .insert(database.schema.answers)
+        .values({
+          sessionId: input.session.id,
+          questionId: question?.id,
+          transcript: input.answer,
+          responseTimeSeconds: input.responseTimeSeconds,
+        })
+        .returning();
+      await database.db.insert(database.schema.feedback).values({
         sessionId: input.session.id,
-        questionId: question?.id,
-        transcript: input.answer,
-        responseTimeSeconds: input.responseTimeSeconds,
-      })
-      .returning();
-    await database.db.insert(database.schema.feedback).values({
-      sessionId: input.session.id,
-      answerId: answerRow.id,
-      ...input.feedback,
-    });
-    await database.db.insert(database.schema.questions).values({
-      sessionId: input.session.id,
-      prompt: input.feedback.followUpQuestion,
-      category: input.session.type,
-      difficulty: input.session.difficulty,
-      expectedSignals: ["depth", "clarity", "scalability"],
-    });
-    await database.db
-      .update(database.schema.interviewSessions)
-      .set({
-        score,
-        currentQuestion: input.feedback.followUpQuestion,
-        updatedAt: new Date(),
-      })
-      .where(eq(database.schema.interviewSessions.id, input.session.id));
+        answerId: answerRow.id,
+        ...input.feedback,
+      });
+      await database.db.insert(database.schema.questions).values({
+        sessionId: input.session.id,
+        prompt: input.feedback.followUpQuestion,
+        category: input.session.type,
+        difficulty: input.session.difficulty,
+        expectedSignals: ["depth", "clarity", "scalability"],
+      });
+      await database.db
+        .update(database.schema.interviewSessions)
+        .set({
+          score,
+          currentQuestion: input.feedback.followUpQuestion,
+          updatedAt: new Date(),
+        })
+        .where(eq(database.schema.interviewSessions.id, input.session.id));
+    } catch (error) {
+      console.warn("Database answer save failed; keeping in-memory interview session.", error);
+    }
   }
 
   return nextSession;
@@ -173,12 +186,16 @@ export async function saveAnswer(input: {
 export async function listInterviewHistory(userId: string) {
   const database = await getDb();
   if (database) {
-    return database.db
-      .select()
-      .from(database.schema.interviewSessions)
-      .where(eq(database.schema.interviewSessions.userId, userId))
-      .orderBy(desc(database.schema.interviewSessions.createdAt))
-      .limit(20);
+    try {
+      return await database.db
+        .select()
+        .from(database.schema.interviewSessions)
+        .where(eq(database.schema.interviewSessions.userId, userId))
+        .orderBy(desc(database.schema.interviewSessions.createdAt))
+        .limit(20);
+    } catch (error) {
+      console.warn("Database history query failed; returning in-memory sessions.", error);
+    }
   }
   return Array.from(memory.sessions.values()).filter((session) => session.userId === userId);
 }
@@ -187,16 +204,20 @@ export async function saveCodingResult(result: Record<string, unknown>) {
   memory.codingResults.unshift(result);
   const database = await getDb();
   if (database) {
-    await database.db.insert(database.schema.codingResults).values({
-      userId: String(result.userId || "demo-user"),
-      sessionId: result.sessionId ? String(result.sessionId) : undefined,
-      language: String(result.language),
-      code: String(result.code),
-      testsPassed: Number(result.testsPassed || 0),
-      testsTotal: Number(result.testsTotal || 0),
-      output: String(result.output || ""),
-      metrics: (result.metrics || {}) as Record<string, number>,
-    });
+    try {
+      await database.db.insert(database.schema.codingResults).values({
+        userId: String(result.userId || "demo-user"),
+        sessionId: result.sessionId ? String(result.sessionId) : undefined,
+        language: String(result.language),
+        code: String(result.code),
+        testsPassed: Number(result.testsPassed || 0),
+        testsTotal: Number(result.testsTotal || 0),
+        output: String(result.output || ""),
+        metrics: (result.metrics || {}) as Record<string, number>,
+      });
+    } catch (error) {
+      console.warn("Database coding result save failed; using in-memory cache.", error);
+    }
   }
 }
 
@@ -204,14 +225,18 @@ export async function saveResume(result: Record<string, unknown>) {
   memory.resumes.unshift(result);
   const database = await getDb();
   if (database) {
-    await database.db.insert(database.schema.resumes).values({
-      userId: String(result.userId || "demo-user"),
-      fileName: String(result.fileName),
-      rawText: String(result.rawText),
-      skills: (result.skills || []) as string[],
-      weakAreas: (result.weakAreas || []) as string[],
-      generatedQuestions: (result.generatedQuestions || []) as string[],
-    });
+    try {
+      await database.db.insert(database.schema.resumes).values({
+        userId: String(result.userId || "demo-user"),
+        fileName: String(result.fileName),
+        rawText: String(result.rawText),
+        skills: (result.skills || []) as string[],
+        weakAreas: (result.weakAreas || []) as string[],
+        generatedQuestions: (result.generatedQuestions || []) as string[],
+      });
+    } catch (error) {
+      console.warn("Database resume save failed; using in-memory cache.", error);
+    }
   }
 }
 

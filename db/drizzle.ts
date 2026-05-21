@@ -1,13 +1,24 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not set");
+const databaseUrl = process.env.DATABASE_URL?.trim();
+
+function createUnavailableDb() {
+  return new Proxy(
+    {},
+    {
+      get() {
+        throw new Error("DATABASE_URL is not set");
+      },
+    },
+  ) as ReturnType<typeof drizzle>;
 }
 
-const client = postgres(process.env.DATABASE_URL, {
-  max: 10,
-  prepare: false,
-});
-
-export const db = drizzle(client);
+export const db = databaseUrl
+  ? drizzle(
+      postgres(databaseUrl, {
+        max: 10,
+        prepare: false,
+      }),
+    )
+  : createUnavailableDb();

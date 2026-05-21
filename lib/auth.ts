@@ -8,6 +8,11 @@ const baseURL =
   process.env.NEXT_PUBLIC_APP_URL ||
   "http://localhost:3000";
 
+const secret =
+  process.env.BETTER_AUTH_SECRET ||
+  process.env.AUTH_SECRET ||
+  "axiom-dev-secret-not-for-production";
+
 const socialProviders = {
   ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
     ? {
@@ -29,6 +34,7 @@ const socialProviders = {
 
 export const auth = betterAuth({
   baseURL,
+  secret,
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
