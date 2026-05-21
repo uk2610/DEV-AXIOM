@@ -39,7 +39,9 @@ const NavItems: NavItem[] = [
 export function AppSidebar() {
   const pathname = usePathname();
 
-  function isActiveRoute(currentPath: string, itemUrl: string) {
+  function isActiveRoute(currentPath: string | null, itemUrl: string) {
+    if (!currentPath) return false;
+
     // Exact match
     if (currentPath === itemUrl) return true;
 
