@@ -1,4 +1,4 @@
-import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import coreWebVitals from "eslint-config-next/core-web-vitals.js";
 import nextTypescript from "eslint-config-next/typescript";
 
 const eslintConfig = [
