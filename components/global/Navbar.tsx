@@ -110,11 +110,12 @@ export function Navbar() {
 
 export function NavMenu() {
   const pathname = usePathname();
+  const currentPath = pathname ?? "";
 
   return (
     <div className="flex items-center gap-5 text-sm font-medium">
       {NAVLINKS.map((item) => {
-        const isActive = item.href && pathname.startsWith(item.href);
+        const isActive = item.href && currentPath.startsWith(item.href);
 
         return (
           <Link
@@ -135,11 +136,12 @@ export function NavMenu() {
 
 export function MobileNavMenu({ onItemClick }: { onItemClick: () => void }) {
   const pathname = usePathname();
+  const currentPath = pathname ?? "";
 
   return (
     <div className="flex flex-col space-y-1">
       {NAVLINKS.map((item, index) => {
-        const isActive = item.href && pathname.startsWith(item.href);
+        const isActive = item.href && currentPath.startsWith(item.href);
 
         return (
           <Link

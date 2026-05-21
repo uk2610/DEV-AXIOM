@@ -15,7 +15,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
-  const from = params.get("from") || "/dashboard";
+  const from = params?.get("from") ?? "/dashboard";
 
   const callbackURL =
     typeof window !== "undefined" ? `${window.location.origin}${decodeURIComponent(from)}` : "/dashboard";
